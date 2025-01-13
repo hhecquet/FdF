@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:29:03 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/12 21:02:40 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/13 09:04:09 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,19 @@ int	key_handler(int keycode, t_data *data)
 	return (0);
 }
 
-void	mlx_put_line(void *mlx, void *win, t_data *data, int color)
+void pixel_put(t_data *data)
+{
+    char    *pixel;
+    int     bits_per_pixel;
+    int     line_length;
+    int     endian;
+
+    pixel = mlx_get_data_addr(data->img, &bits_per_pixel, &line_length, &endian);
+    pixel += (data->a.y * line_length + data->a.x * (bits_per_pixel / 8));
+    *(int *)pixel = data->base.color;
+}
+
+void	mlx_put_line(void *mlx, void *win, t_data *data)
 {
 	double	dx;
 	double	dy;
@@ -52,7 +64,7 @@ void	mlx_put_line(void *mlx, void *win, t_data *data, int color)
 	y_increment = dy / step;
 	while (step > 0)
 	{
-		mlx_pixel_put(mlx, win, data->a.x, data->a.y, color);
+		pixel_put(data);
 		data->a.x += x_increment;
 		data->a.y += y_increment;
 		step--;
@@ -103,7 +115,7 @@ void	mlx_put_base(t_data *data)
 				if ((data->map[j][i] < 0 && data->map[j + 1][i] > 0)
 						|| (data->map[j][i] > 0 && data->map[j][i + 1] < 0))
 					data->base.color = 0xAA00FF;
-				mlx_put_line(data->mlx, data->win, data, data->base.color);
+				mlx_put_line(data->mlx, data->win, data);
 			}
 			if (i == 0)
 				data->a = firstraw;
@@ -131,7 +143,7 @@ void	mlx_put_base(t_data *data)
 				if ((data->map[j][i] < 0 && data->map[j][i + 1] > 0)
 						|| (data->map[j][i] > 0 && data->map[j][i + 1] < 0))
 					data->base.color = 0xAA00FF;
-				mlx_put_line(data->mlx, data->win, data, data->base.color);
+				mlx_put_line(data->mlx, data->win, data);
 				preva = data->b;
 			}
 			i++;
@@ -145,4 +157,7 @@ void	mlx_put_base(t_data *data)
 					* sin((data->anglez * M_PI) / 180));
 		}
 	}
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 }
+	//data->img = mlx_xpm_file_to_image(data->mlx, "intro.xpm", &data->win_width, &data->win_height);
+	//

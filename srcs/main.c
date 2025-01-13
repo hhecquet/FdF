@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:13:55 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/12 21:58:14 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/13 08:19:42 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ int	main(int argc, char **argv)
 	data->win_width = 1920;
 	data->win_height = 1080;
 	data_init(data, argv);
-	//mlx_xpm_to_image(data->mlx, "intro.png", &data->win_width, &data->win_height);
-	//mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	mlx_put_base(data);
 	mlx_hook(data->win, 2, 1L << 0, key_handler, data);
 	mlx_hook(data->win, 17, 0, close_window, data);

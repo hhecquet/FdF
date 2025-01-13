@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:29:55 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/12 20:42:14 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/13 09:02:09 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@
 # endif
 
 # include "../minilibx-linux/mlx.h"
-# include <math.h>
 # include "../libft/libft.h"
-# include <X11/Xlib.h>
-# include <stdlib.h> 
-# include <stdio.h>//a enlever
+# include <math.h>
+# include <stdlib.h>
 # include <unistd.h>
 
 typedef struct s_point
@@ -75,7 +73,7 @@ typedef struct s_data
 	int 		win_height;
 }	t_data;
 
-void	mlx_put_line(void *mlx, void *win, t_data *data, int color);
+void	mlx_put_line(void *mlx, void *win, t_data *data);
 void	mlx_put_base(t_data *data);
 int		key_handler(int keycode, t_data *data);
 void	handle_error(const char *msg, t_data *data);
