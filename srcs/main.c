@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:13:55 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/13 12:02:05 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:01:04 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_error(const char *msg, t_data *data)
 	{
 		mlx_clear_window(data->mlx, data->win);
 		if (data->intro)
-    		mlx_destroy_image(data->mlx, data->intro);
+			mlx_destroy_image(data->mlx, data->intro);
 		mlx_destroy_image(data->mlx, data->img);
 		mlx_destroy_window(data->mlx, data->win);
 		mlx_destroy_display(data->mlx);
@@ -68,6 +68,7 @@ void	data_init(t_data *data, char **argv)
 	data->angley = 330;
 	data->anglez = 270;
 	data->intro = 0;
+	data->is_printing = 1;
 }
 
 int	main(int argc, char **argv)

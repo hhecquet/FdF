@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:29:03 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/13 12:02:45 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:03:54 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	key_handler(int keycode, t_data *data)
 {
+	if (data->is_printing == 1)
+		return (0);
 	if (keycode == 65307)
 		handle_error(NULL, data);
 	else if (keycode == 65362 || keycode == 65364)
@@ -35,16 +37,18 @@ int	key_handler(int keycode, t_data *data)
 	return (0);
 }
 
-void pixel_put(t_data *data)
+void	pixel_put(t_data *data)
 {
-    char *pixel;
-    int bits_per_pixel;
-    int line_length;
-    int endian;
-    
-    pixel = mlx_get_data_addr(data->img, &bits_per_pixel, &line_length, &endian);
-    pixel += ((int)data->a.y * line_length + (int)data->a.x * (bits_per_pixel / 8));
-    *(int *)pixel = data->base.color;
+	char	*pixel;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+
+	pixel = mlx_get_data_addr(data->img, &bits_per_pixel, &line_length,
+			&endian);
+	pixel += ((int)data->a.y * line_length + (int)data->a.x
+			* (bits_per_pixel / 8));
+	*(int *)pixel = data->base.color;
 }
 
 void	mlx_put_line(t_data *data)
@@ -85,9 +89,9 @@ void	mlx_put_base(t_data *data)
 	i = 0;
 	create_image(data, data->win_width, data->win_height);
 	init = data->first;
-	preva.x = data->first.x + (data->map[j][0] * (data->scale / 10)
+	preva.x = data->first.x + (data->map[j][0] * (data->scale / 3)
 			* cos((data->anglez * M_PI) / 180));
-	preva.y = data->first.y + (data->map[j][0] * (data->scale / 10)
+	preva.y = data->first.y + (data->map[j][0] * (data->scale / 3)
 			* sin((data->anglez * M_PI) / 180));
 	firstraw = preva;
 	while (j < data->base.ligne)
@@ -106,9 +110,9 @@ void	mlx_put_base(t_data *data)
 				data->b.y = init.y + (data->scale * sin((data->anglex
 								* M_PI) / 180));
 				data->b.x = data->b.x + (data->map[j + 1][i] * (data->scale
-							/ 10) * cos((data->anglez * M_PI) / 180));
+							/ 3) * cos((data->anglez * M_PI) / 180));
 				data->b.y = data->b.y + (data->map[j + 1][i] * (data->scale
-							/ 10) * sin((data->anglez * M_PI) / 180));
+							/ 3) * sin((data->anglez * M_PI) / 180));
 				if (data->map[j][i] > 0 || data->map[j + 1][i] > 0)
 					data->base.color = 0xFF0000;
 				else if (data->map[j][i] < 0 || data->map[j + 1][i] < 0)
@@ -134,9 +138,9 @@ void	mlx_put_base(t_data *data)
 							/ 180));
 				init = data->b;
 				data->b.x = data->b.x + (data->map[j][i + 1] * (data->scale
-							/ 10) * cos((data->anglez * M_PI) / 180));
+							/ 3) * cos((data->anglez * M_PI) / 180));
 				data->b.y = data->b.y + (data->map[j][i + 1] * (data->scale
-							/ 10) * sin((data->anglez * M_PI) / 180));
+							/ 3) * sin((data->anglez * M_PI) / 180));
 				if (data->map[j][i] > 0 || data->map[j][i + 1] > 0)
 					data->base.color = 0xFF0000;
 				else if (data->map[j][i] < 0 || data->map[j][i + 1] < 0)
@@ -154,20 +158,22 @@ void	mlx_put_base(t_data *data)
 		j++;
 		if (j < data->base.ligne)
 		{
-			init.x = firstraw.x - (data->map[j][i] * (data->scale / 10)
+			init.x = firstraw.x - (data->map[j][i] * (data->scale / 3)
 					* cos((data->anglez * M_PI) / 180));
-			init.y = firstraw.y - (data->map[j][i] * (data->scale / 10)
+			init.y = firstraw.y - (data->map[j][i] * (data->scale / 3)
 					* sin((data->anglez * M_PI) / 180));
 		}
 	}
 	if (data->intro)
-    	mlx_destroy_image(data->mlx, data->intro);
-	data->intro = mlx_xpm_file_to_image(data->mlx, "srcs/intro.xpm", &data->intro_width, &data->intro_height);
+		mlx_destroy_image(data->mlx, data->intro);
+	data->intro = mlx_xpm_file_to_image(data->mlx, "srcs/intro.xpm",
+			&data->intro_width, &data->intro_height);
 	if (!data->intro)
 	{
-	    ft_printf("Error: Failed to load XPM image\n");
-		return ;		
+		ft_printf("Error: Failed to load XPM image\n");
+		return ;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	mlx_put_image_to_window(data->mlx, data->win, data->intro, 0, 0);
+	data->is_printing = 0;
 }

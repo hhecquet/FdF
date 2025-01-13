@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:29:55 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/13 12:01:22 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:05:46 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_point
 {
 	float		x;
 	float		y;
-	int		color;
+	int			color;
 }	t_point;
 
 typedef struct s_numpoint
@@ -58,8 +58,8 @@ typedef struct s_data
 	char		*addr;
 	void		*intro;
 	char		*img2;
-	int 		intro_width;
-	int 		intro_height;
+	int			intro_width;
+	int			intro_height;
 	int			bpp;
 	int			line_length;
 	int			endian;
@@ -67,14 +67,15 @@ typedef struct s_data
 	int			angley;
 	int			anglez;
 	int			anglefirst;
+	int			is_printing;
 	t_point		a;
 	t_point		b;
 	t_numpoint	base;
 	t_point		first;
 	int			**map;
 	float		scale;
-	int 		win_width;
-	int 		win_height;
+	int			win_width;
+	int			win_height;
 }	t_data;
 
 void	mlx_put_line(t_data *data);

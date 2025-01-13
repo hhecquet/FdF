@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 14:42:48 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/13 09:37:43 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:04:08 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	rot_x(int keycode, t_data *data)
 {
+	data->is_printing = 1;
 	if (keycode == 120)
 	{
 		data->anglex += 2;
@@ -28,13 +29,13 @@ void	rot_x(int keycode, t_data *data)
 		data->anglex = 0;
 	if (data->anglez == 360)
 		data->anglez = 0;
-	//mlx_clear_window(data->mlx, data->win);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
 
 void	rot_y(int keycode, t_data *data)
 {
+	data->is_printing = 1;
 	if (keycode == 115)
 	{
 		data->angley += 2;
@@ -49,13 +50,13 @@ void	rot_y(int keycode, t_data *data)
 		data->angley = 0;
 	if (data->anglez == 360)
 		data->anglez = 0;
-	//mlx_clear_window(data->mlx, data->win);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
 
 void	rot_z(int keycode, t_data *data)
 {
+	data->is_printing = 1;
 	if (keycode == 119)
 	{
 		data->anglex += 2;
@@ -70,7 +71,6 @@ void	rot_z(int keycode, t_data *data)
 		data->anglex = 0;
 	if (data->angley == 360)
 		data->angley = 0;
-	//mlx_clear_window(data->mlx, data->win);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
