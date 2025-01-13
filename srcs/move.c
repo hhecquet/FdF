@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 11:42:03 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/12 16:20:17 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/13 10:51:50 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	move_up_down(int keycode, t_data *data)
 	{
 		data->first.y += 10;
 	}
-	mlx_clear_window(data->mlx, data->win);
+	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
 
@@ -36,7 +36,8 @@ void	move_left_right(int keycode, t_data *data)
 	{
 		data->first.x -= 10;
 	}
-	mlx_clear_window(data->mlx, data->win);
+	////mlx_clear_window(data->mlx, data->win);
+	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
 
@@ -44,7 +45,7 @@ void	zoom_in_out(int keycode, t_data *data)
 {
 	if (keycode == 61)
 	{
-		if (data->scale < 230)
+		if (data->scale < 1500)
 			data->scale *= 1.1;
 	}
 	else
@@ -52,7 +53,8 @@ void	zoom_in_out(int keycode, t_data *data)
 		if (data->scale > 0.01)
 			data->scale /= 1.1;
 	}
-	mlx_clear_window(data->mlx, data->win);
+	//mlx_clear_window(data->mlx, data->win);
+	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
 
@@ -65,7 +67,8 @@ void	isometric(t_data *data)
 	data->scale = 3.3 * fmax(data->base.ligne, data->base.colonne);
 	data->first.x = 960 + (720 * cos((data->anglefirst * M_PI) / 180));
 	data->first.y = 540 + (405 * sin((data->anglefirst * M_PI) / 180));
-	mlx_clear_window(data->mlx, data->win);
+	//mlx_clear_window(data->mlx, data->win);
+	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
 
@@ -78,6 +81,7 @@ void	paralelle(t_data *data)
 	data->scale = 3.3 * fmax(data->base.ligne, data->base.colonne);
 	data->first.x = 960 + (750 * cos((data->anglefirst * M_PI) / 180));
 	data->first.y = 540 + (500 * sin((data->anglefirst * M_PI) / 180));
-	mlx_clear_window(data->mlx, data->win);
+	//mlx_clear_window(data->mlx, data->win);
+	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }

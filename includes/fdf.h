@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:29:55 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/13 09:02:09 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:01:22 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 
 typedef struct s_point
 {
-	double	x;
-	double	y;
+	float		x;
+	float		y;
 	int		color;
 }	t_point;
 
@@ -56,6 +56,10 @@ typedef struct s_data
 	void		*win;
 	void		*img;
 	char		*addr;
+	void		*intro;
+	char		*img2;
+	int 		intro_width;
+	int 		intro_height;
 	int			bpp;
 	int			line_length;
 	int			endian;
@@ -68,12 +72,12 @@ typedef struct s_data
 	t_numpoint	base;
 	t_point		first;
 	int			**map;
-	double		scale;
+	float		scale;
 	int 		win_width;
 	int 		win_height;
 }	t_data;
 
-void	mlx_put_line(void *mlx, void *win, t_data *data);
+void	mlx_put_line(t_data *data);
 void	mlx_put_base(t_data *data);
 int		key_handler(int keycode, t_data *data);
 void	handle_error(const char *msg, t_data *data);
@@ -91,5 +95,6 @@ void	rot_y(int keycode, t_data *data);
 void	rot_z(int keycode, t_data *data);
 void	isometric(t_data *data);
 void	paralelle(t_data *data);
+void	create_image(t_data *data, int win_width, int win_height);
 
 #endif

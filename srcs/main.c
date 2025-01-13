@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:13:55 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/13 08:19:42 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:02:05 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	handle_error(const char *msg, t_data *data)
 	if (data)
 	{
 		mlx_clear_window(data->mlx, data->win);
+		if (data->intro)
+    		mlx_destroy_image(data->mlx, data->intro);
 		mlx_destroy_image(data->mlx, data->img);
 		mlx_destroy_window(data->mlx, data->win);
 		mlx_destroy_display(data->mlx);
@@ -56,7 +58,6 @@ void	data_init(t_data *data, char **argv)
 			"FdF - 42 Project");
 	if (!data->win)
 		handle_error("Error: Window creation failed->\n", data);
-	create_image(data, data->win_width, data->win_height);
 	data->base.ligne = 0;
 	parser(argv[1], data);
 	data->anglefirst = 180;
@@ -66,6 +67,7 @@ void	data_init(t_data *data, char **argv)
 	data->anglex = 30;
 	data->angley = 330;
 	data->anglez = 270;
+	data->intro = 0;
 }
 
 int	main(int argc, char **argv)
@@ -79,6 +81,8 @@ int	main(int argc, char **argv)
 		handle_error("Error: Memory allocation failed->\n", NULL);
 	data->win_width = 1920;
 	data->win_height = 1080;
+	data->intro_width = 300;
+	data->intro_height = 1080;
 	data_init(data, argv);
 	mlx_put_base(data);
 	mlx_hook(data->win, 2, 1L << 0, key_handler, data);
