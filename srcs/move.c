@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 11:42:03 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/13 13:04:17 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 09:37:19 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,11 @@ void	isometric(t_data *data)
 	data->angley = 330;
 	data->anglez = 270;
 	data->anglefirst = 180;
-	data->scale = 3.3 * fmax(data->base.ligne, data->base.colonne);
-	data->first.x = 960 + (720 * cos((data->anglefirst * M_PI) / 180));
-	data->first.y = 540 + (405 * sin((data->anglefirst * M_PI) / 180));
+	data->scale = 1000 / fmax(data->base.ligne, data->base.colonne);
+	//data->first.x = 960 + (720 * cos((data->anglefirst * M_PI) / 180));
+	//data->first.y = 540 + (405 * sin((data->anglefirst * M_PI) / 180));
+	data->first.x = 400;
+	data->first.y = 540;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
@@ -80,9 +82,10 @@ void	paralelle(t_data *data)
 	data->angley = 0;
 	data->anglez = 270;
 	data->anglefirst = 210;
-	data->scale = 3.3 * fmax(data->base.ligne, data->base.colonne);
-	data->first.x = 960 + (750 * cos((data->anglefirst * M_PI) / 180));
+	data->scale = 1000 / fmax(data->base.ligne, data->base.colonne);
+	//data->first.x = 960 + (750 * cos((data->anglefirst * M_PI) / 180));
 	data->first.y = 540 + (500 * sin((data->anglefirst * M_PI) / 180));
+	data->first.x = 400;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }

@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:29:55 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/13 13:05:46 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 09:18:40 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_data
 	int			anglez;
 	int			anglefirst;
 	int			is_printing;
+	float			high;
 	t_point		a;
 	t_point		b;
 	t_numpoint	base;
@@ -97,5 +98,6 @@ void	rot_z(int keycode, t_data *data);
 void	isometric(t_data *data);
 void	paralelle(t_data *data);
 void	create_image(t_data *data, int win_width, int win_height);
+void	high(int keycode, t_data *data);
 
 #endif

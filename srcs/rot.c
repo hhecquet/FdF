@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 14:42:48 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/13 13:04:08 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 09:22:11 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,23 @@ void	rot_z(int keycode, t_data *data)
 		data->anglex = 0;
 	if (data->angley == 360)
 		data->angley = 0;
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_put_base(data);
+}
+
+void	high(int keycode, t_data *data)
+{
+	data->is_printing = 1;
+	if (keycode == 99)
+	{
+		if (data->high < 70)
+			data->high += 0.5;
+	}
+	else
+	{
+		if (data->high > 0.5)
+			data->high -= 0.5;
+	}
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }

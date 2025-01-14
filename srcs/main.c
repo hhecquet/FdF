@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:13:55 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/13 13:01:04 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 09:39:04 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,20 @@ void	data_init(t_data *data, char **argv)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		handle_error("Error: MiniLibX initialization failed->\n", data);
-	data->win = mlx_new_window(data->mlx, data->win_width, data->win_height,
-			"FdF - 42 Project");
-	if (!data->win)
-		handle_error("Error: Window creation failed->\n", data);
 	data->base.ligne = 0;
 	parser(argv[1], data);
 	data->anglefirst = 180;
-	data->scale = 3.3 * fmax(data->base.ligne, data->base.colonne);
-	data->first.x = 960 + (720 * cos((data->anglefirst * M_PI) / 180));
-	data->first.y = 540 + (405 * sin((data->anglefirst * M_PI) / 180));
+	data->scale = 1000 / fmax(data->base.ligne, data->base.colonne);
+	//data->first.x = 960 + (720 * cos((data->anglefirst * M_PI) / 180));
+	//data->first.y = 540 + (405 * sin((data->anglefirst * M_PI) / 180));
+	data->first.x = 400;
+	data->first.y = 540;
 	data->anglex = 30;
 	data->angley = 330;
 	data->anglez = 270;
 	data->intro = 0;
 	data->is_printing = 1;
+	data->high = 10;
 }
 
 int	main(int argc, char **argv)
@@ -85,6 +84,10 @@ int	main(int argc, char **argv)
 	data->intro_width = 300;
 	data->intro_height = 1080;
 	data_init(data, argv);
+	data->win = mlx_new_window(data->mlx, data->win_width, data->win_height,
+			"FdF - 42 Project");
+	if (!data->win)
+		handle_error("Error: Window creation failed->\n", data);
 	mlx_put_base(data);
 	mlx_hook(data->win, 2, 1L << 0, key_handler, data);
 	mlx_hook(data->win, 17, 0, close_window, data);
