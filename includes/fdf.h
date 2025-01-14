@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:29:55 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/14 11:39:31 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:12:14 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ typedef struct s_data
 	int			bpp;
 	int			line_length;
 	int			endian;
-	int			anglex;
-	int			angley;
-	int			anglez;
+	long		anglex;
+	long		angley;
+	long		anglez;
 	int			anglefirst;
 	int			is_printing;
-	float			high;
+	float		high;
 	t_point		a;
 	t_point		b;
 	t_numpoint	base;

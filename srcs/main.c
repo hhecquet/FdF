@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:13:55 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/14 11:08:47 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:26:00 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ void	data_init(t_data *data, char **argv)
 	parser(argv[1], data);
 	data->anglefirst = 180;
 	data->scale = 900 / fmax(data->base.ligne, data->base.colonne);
-	//data->first.x = 960 + (720 * cos((data->anglefirst * M_PI) / 180));
-	//data->first.y = 540 + (405 * sin((data->anglefirst * M_PI) / 180));
 	data->first.x = 400;
 	data->first.y = 540;
 	data->anglex = 30;
@@ -69,6 +67,8 @@ void	data_init(t_data *data, char **argv)
 	data->is_printing = 1;
 	data->high = 10;
 }
+//data->first.x = 960 + (720 * cos((data->anglefirst * M_PI) / 180));
+//data->first.y = 540 + (405 * sin((data->anglefirst * M_PI) / 180));
 
 int	main(int argc, char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:29:03 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/14 11:38:52 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:35:29 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ void	mlx_put_base(t_data *data)
 	i = 0;
 	create_image(data, data->win_width, data->win_height);
 	firstraw.x = data->first.x + (data->map[j][i] * (data->scale
-			/ data->high) * cosf((data->anglez * M_PI) / 180));
+				/ data->high) * cosf((data->anglez * M_PI) / 180));
 	firstraw.y = data->first.y + (data->map[j][i] * (data->scale
-			/ data->high) * cosf((data->anglez * M_PI) / 180));
+				/ data->high) * cosf((data->anglez * M_PI) / 180));
 	preva = firstraw;
 	tmp = firstraw;
 	while (j < data->base.ligne)
@@ -113,8 +113,12 @@ void	mlx_put_base(t_data *data)
 								* M_PI) / 180));
 				data->b.y = data->a.y + (data->scale * sinf((data->anglex
 								* M_PI) / 180));
-				data->b.x = data->b.x + ((data->map[j + 1][i] - data->map[j][i]) * (data->scale / data->high) * cosf((data->anglez * M_PI) / 180));
-				data->b.y = data->b.y + ((data->map[j + 1][i] - data->map[j][i]) * (data->scale / data->high) * sinf((data->anglez * M_PI) / 180));
+				data->b.x = data->b.x + ((data->map[j + 1][i] - data->map[j][i])
+						* (data->scale / data->high) * cosf((data->anglez
+								* M_PI) / 180));
+				data->b.y = data->b.y + ((data->map[j + 1][i] - data->map[j][i])
+						* (data->scale / data->high) * sinf((data->anglez
+								* M_PI) / 180));
 				if (i == 0)
 					tmp = data->b;
 				if (data->map[j][i] > 0 || data->map[j + 1][i] > 0)
@@ -134,12 +138,16 @@ void	mlx_put_base(t_data *data)
 				data->a = preva;
 			if (i + 1 < data->base.colonne)
 			{
-				data->b.x = data->a.x + (data->scale * cosf((data->angley * M_PI)
-							/ 180));
-				data->b.y = data->a.y + (data->scale * sinf((data->angley * M_PI)
-							/ 180));
-				data->b.x = data->b.x + ((data->map[j][i + 1] - data->map[j][i]) * (data->scale / data->high) * cosf((data->anglez * M_PI) / 180));
-				data->b.y = data->b.y + ((data->map[j][i + 1] - data->map[j][i]) * (data->scale / data->high) * sinf((data->anglez * M_PI) / 180));
+				data->b.x = data->a.x + (data->scale * cosf((data->angley
+								* M_PI) / 180));
+				data->b.y = data->a.y + (data->scale * sinf((data->angley
+								* M_PI) / 180));
+				data->b.x = data->b.x + ((data->map[j][i + 1] - data->map[j][i])
+						* (data->scale / data->high) * cosf((data->anglez
+								* M_PI) / 180));
+				data->b.y = data->b.y + ((data->map[j][i + 1] - data->map[j][i])
+						* (data->scale / data->high) * sinf((data->anglez
+								* M_PI) / 180));
 				preva = data->b;
 				if (data->map[j][i] > 0 || data->map[j][i + 1] > 0)
 					data->base.color = 0xF9036B;
@@ -170,4 +178,7 @@ void	mlx_put_base(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	mlx_put_image_to_window(data->mlx, data->win, data->intro, 0, 0);
 	data->is_printing = 0;
+	printf("anglex = %ld\n", data->anglex);
+	printf("angley = %ld\n", data->angley);
+	printf("anglez = %ld\n", data->anglez);
 }
