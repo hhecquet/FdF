@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:29:55 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/14 13:12:14 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:50:19 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_data
 	int			anglefirst;
 	int			is_printing;
 	float		high;
+	float		scalez;
 	t_point		a;
 	t_point		b;
 	t_numpoint	base;

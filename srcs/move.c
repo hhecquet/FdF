@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 11:42:03 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/14 12:26:29 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:58:05 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	isometric(t_data *data)
 	data->scale = 1000 / fmax(data->base.ligne, data->base.colonne);
 	data->first.x = 400;
 	data->first.y = 540;
+	data->scalez = 1;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
@@ -85,6 +86,7 @@ void	paralelle(t_data *data)
 	data->scale = 1000 / fmax(data->base.ligne, data->base.colonne);
 	data->first.y = 540 + (500 * sin((data->anglefirst * M_PI) / 180));
 	data->first.x = 400;
+	data->scalez = 1;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
