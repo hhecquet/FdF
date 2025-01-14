@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:29:03 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/14 09:34:22 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:38:52 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	key_handler(int keycode, t_data *data)
 		paralelle(data);
 	else if (keycode == 99 || keycode == 118)
 		high(keycode, data);
+	else if (keycode == 116)
+		top (data);
 	return (0);
 }
 
@@ -81,7 +83,7 @@ void	mlx_put_line(t_data *data)
 
 void	mlx_put_base(t_data *data)
 {
-	static t_point	init;
+	static t_point	tmp;
 	static t_point	preva;
 	static t_point	firstraw;
 	int				i;
@@ -90,12 +92,12 @@ void	mlx_put_base(t_data *data)
 	j = 0;
 	i = 0;
 	create_image(data, data->win_width, data->win_height);
-	init = data->first;
-	preva.x = data->first.x + (data->map[j][0] * (data->scale / data->high)
-			* cos((data->anglez * M_PI) / 180));
-	preva.y = data->first.y + (data->map[j][0] * (data->scale / data->high)
-			* sin((data->anglez * M_PI) / 180));
-	firstraw = preva;
+	firstraw.x = data->first.x + (data->map[j][i] * (data->scale
+			/ data->high) * cosf((data->anglez * M_PI) / 180));
+	firstraw.y = data->first.y + (data->map[j][i] * (data->scale
+			/ data->high) * cosf((data->anglez * M_PI) / 180));
+	preva = firstraw;
+	tmp = firstraw;
 	while (j < data->base.ligne)
 	{
 		i = 0;
@@ -107,64 +109,54 @@ void	mlx_put_base(t_data *data)
 				data->a = preva;
 			if (j + 1 < data->base.ligne)
 			{
-				data->b.x = init.x + (data->scale * cos((data->anglex
+				data->b.x = data->a.x + (data->scale * cosf((data->anglex
 								* M_PI) / 180));
-				data->b.y = init.y + (data->scale * sin((data->anglex
+				data->b.y = data->a.y + (data->scale * sinf((data->anglex
 								* M_PI) / 180));
-				data->b.x = data->b.x + (data->map[j + 1][i] * (data->scale
-							/ data->high) * cos((data->anglez * M_PI) / 180));
-				data->b.y = data->b.y + (data->map[j + 1][i] * (data->scale
-							/ data->high) * sin((data->anglez * M_PI) / 180));
+				data->b.x = data->b.x + ((data->map[j + 1][i] - data->map[j][i]) * (data->scale / data->high) * cosf((data->anglez * M_PI) / 180));
+				data->b.y = data->b.y + ((data->map[j + 1][i] - data->map[j][i]) * (data->scale / data->high) * sinf((data->anglez * M_PI) / 180));
+				if (i == 0)
+					tmp = data->b;
 				if (data->map[j][i] > 0 || data->map[j + 1][i] > 0)
-					data->base.color = 0xFF0000;
+					data->base.color = 0xF9036B;
 				else if (data->map[j][i] < 0 || data->map[j + 1][i] < 0)
-					data->base.color = 0x0000FF;
+					data->base.color = 0xF7A2C6;
 				else
 					data->base.color = 0xFFFFFF;
 				if ((data->map[j][i] < 0 && data->map[j + 1][i] > 0)
-						|| (data->map[j][i] > 0 && data->map[j][i + 1] < 0))
-					data->base.color = 0xAA00FF;
+						|| (data->map[j][i] > 0 && data->map[j + 1][i] < 0))
+					data->base.color = 0xFA599D;
 				mlx_put_line(data);
 			}
 			if (i == 0)
 				data->a = firstraw;
 			else
 				data->a = preva;
-			if (i == 0)
-				firstraw = data->b;
 			if (i + 1 < data->base.colonne)
 			{
-				data->b.x = init.x + (data->scale * cos((data->angley * M_PI)
+				data->b.x = data->a.x + (data->scale * cosf((data->angley * M_PI)
 							/ 180));
-				data->b.y = init.y + (data->scale * sin((data->angley * M_PI)
+				data->b.y = data->a.y + (data->scale * sinf((data->angley * M_PI)
 							/ 180));
-				init = data->b;
-				data->b.x = data->b.x + (data->map[j][i + 1] * (data->scale
-							/ data->high) * cos((data->anglez * M_PI) / 180));
-				data->b.y = data->b.y + (data->map[j][i + 1] * (data->scale
-							/ data->high) * sin((data->anglez * M_PI) / 180));
+				data->b.x = data->b.x + ((data->map[j][i + 1] - data->map[j][i]) * (data->scale / data->high) * cosf((data->anglez * M_PI) / 180));
+				data->b.y = data->b.y + ((data->map[j][i + 1] - data->map[j][i]) * (data->scale / data->high) * sinf((data->anglez * M_PI) / 180));
+				preva = data->b;
 				if (data->map[j][i] > 0 || data->map[j][i + 1] > 0)
-					data->base.color = 0xFF0000;
+					data->base.color = 0xF9036B;
 				else if (data->map[j][i] < 0 || data->map[j][i + 1] < 0)
-					data->base.color = 0x0000FF;
+					data->base.color = 0xF7A2C6;
 				else
 					data->base.color = 0xFFFFFF;
 				if ((data->map[j][i] < 0 && data->map[j][i + 1] > 0)
 						|| (data->map[j][i] > 0 && data->map[j][i + 1] < 0))
-					data->base.color = 0xAA00FF;
+					data->base.color = 0xFA599D;
 				mlx_put_line(data);
 				preva = data->b;
 			}
 			i++;
 		}
 		j++;
-		if (j < data->base.ligne)
-		{
-			init.x = firstraw.x - (data->map[j][i] * (data->scale / data->high)
-					* cos((data->anglez * M_PI) / 180));
-			init.y = firstraw.y - (data->map[j][i] * (data->scale / data->high)
-					* sin((data->anglez * M_PI) / 180));
-		}
+		firstraw = tmp;
 	}
 	if (data->intro)
 		mlx_destroy_image(data->mlx, data->intro);

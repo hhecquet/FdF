@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 14:42:48 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/14 09:22:11 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:44:25 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,26 @@ void	high(int keycode, t_data *data)
 	if (keycode == 99)
 	{
 		if (data->high < 70)
-			data->high += 0.5;
+			data->high += 0.2;
 	}
 	else
 	{
-		if (data->high > 0.5)
-			data->high -= 0.5;
+		if (data->high > 0.4)
+			data->high -= 0.2;
 	}
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_put_base(data);
+}
+
+void	top(t_data *data)
+{
+	data->is_printing = 1;
+	data->anglex = 90;
+	data->angley = 0;
+	data->anglez = 90;
+	data->first.x = 400;;
+	data->scale = 1000 / fmax(data->base.ligne, data->base.colonne);
+	data->first.y = data->scale + 50;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }

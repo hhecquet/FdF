@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:29:55 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/14 09:18:40 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:39:31 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ void	isometric(t_data *data);
 void	paralelle(t_data *data);
 void	create_image(t_data *data, int win_width, int win_height);
 void	high(int keycode, t_data *data);
+void	top(t_data *data);
 
 #endif
