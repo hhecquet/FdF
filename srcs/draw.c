@@ -178,11 +178,11 @@ void	mlx_put_base(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	mlx_put_image_to_window(data->mlx, data->win, data->intro, 0, 0);
 	data->is_printing = 0;
-	/* printf("anglex = %ld\n", data->anglex);
+	printf("anglex = %ld\n", data->anglex);
 	printf("angley = %ld\n", data->angley);
-	printf("anglez = %ld\n", data->anglez); */
-	printf("scalez = %f\n", data->scalez);
-	printf("scale = %f\n", data->scale);
+	printf("anglez = %ld\n", data->anglez);
+	//printf("scalez = %f\n", data->scalez);
+	//printf("scale = %f\n", data->scale);
 	printf("scale*data->scalez = %f\n", data->scale*data->scalez);
-	
 }
+//abs == 90 pour la rotate passer de 0 a 1

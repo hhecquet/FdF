@@ -19,13 +19,13 @@ void	rot_x(int keycode, t_data *data)
 	{
 		data->anglex += 1;
 		data->anglez += 1;
-		data->scalez += 0.1;
+		data->scalez -= 0.02;
 	}
 	else
 	{
 		data->anglex -= 1;
 		data->anglez -= 1;
-		data->scalez -= 0.1;
+		data->scalez += 0.02;
 	}
 	if (data->anglex == 360)
 		data->anglex = 0;
@@ -42,13 +42,13 @@ void	rot_y(int keycode, t_data *data)
 	{
 		data->angley += 1;
 		data->anglez -= 1;
-		data->scalez += 0.1;
+		data->scalez += 0.02;
 	}
 	else
 	{
 		data->angley -= 1;
 		data->anglez += 1;
-		data->scalez -= 0.1;
+		data->scalez -= 0.02;
 	}
 	if (data->angley == 360)
 		data->angley = 0;
@@ -102,6 +102,7 @@ void	top(t_data *data)
 	data->anglex = 90;
 	data->angley = 0;
 	data->first.x = 400;
+	data->anglez = 360;
 	data->scale = 1000 / fmax(data->base.ligne, data->base.colonne);
 	data->scalez = 0;
 	data->first.y = data->scale + 50;

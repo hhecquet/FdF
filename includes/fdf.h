@@ -70,6 +70,8 @@ typedef struct s_data
 	int			is_printing;
 	float		high;
 	float		scalez;
+	float		scalex;
+	float		scaley;
 	t_point		a;
 	t_point		b;
 	t_numpoint	base;
