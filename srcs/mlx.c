@@ -16,4 +16,8 @@ enelever le key hook pour les map trop grande
 
 norme
 valgrind
+
+vue iso et para bien mais blouqer les rot et gere les zoom et deplacement
+vue top (free a changer) bon debut avec z qui change le reste a gerer
+
 et gerer les couleurs dans les fichiers*/
