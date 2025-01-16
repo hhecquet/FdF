@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:29:03 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/14 16:51:18 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/16 11:26:44 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 int	key_handler(int keycode, t_data *data)
 {
-	if (data->is_printing == 1)
-		return (0);
-	if (keycode == 65307)
+	printf("keycode = %d\n", keycode);
+	if (keycode == 105)
+		isometric(data);
+	else if (keycode == 112)
+		paralelle(data);
+	else if (keycode == 99 || keycode == 118)
+		high(keycode, data);
+	else if (keycode == 102)
+		free_view(data);
+	else if (keycode == 65307)
 		handle_error(NULL, data);
 	else if (keycode == 65362 || keycode == 65364)
 		move_up_down(keycode, data);
@@ -24,20 +31,14 @@ int	key_handler(int keycode, t_data *data)
 		move_left_right(keycode, data);
 	else if (keycode == 61 || keycode == 45)
 		zoom_in_out(keycode, data);
+	else if (data->is_printing == 1)
+		return (0);
 	else if (keycode == 120 || keycode == 122)
 		rot_x(keycode, data);
 	else if (keycode == 115 || keycode == 97)
 		rot_y(keycode, data);
 	else if (keycode == 119 || keycode == 113)
 		rot_z(keycode, data);
-	else if (keycode == 105)
-		isometric(data);
-	else if (keycode == 112)
-		paralelle(data);
-	else if (keycode == 99 || keycode == 118)
-		high(keycode, data);
-	else if (keycode == 116)
-		top (data);
 	return (0);
 }
 
@@ -177,12 +178,13 @@ void	mlx_put_base(t_data *data)
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	mlx_put_image_to_window(data->mlx, data->win, data->intro, 0, 0);
-	data->is_printing = 0;
+	if (data->view.free == 1)
+		data->is_printing = 0;
 	printf("anglex = %ld\n", data->anglex);
 	printf("angley = %ld\n", data->angley);
 	printf("anglez = %ld\n", data->anglez);
-	//printf("scalez = %f\n", data->scalez);
+	printf("scalez = %f\n", data->scalez);
 	//printf("scale = %f\n", data->scale);
-	printf("scale*data->scalez = %f\n", data->scale*data->scalez);
+	//printf("scale*data->scalez = %f\n", data->scale*data->scalez);
 }
 //abs == 90 pour la rotate passer de 0 a 1

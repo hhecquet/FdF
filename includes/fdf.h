@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:29:55 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/14 16:50:19 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/16 10:59:00 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ typedef struct s_numpoint
 	int		color;
 }	t_numpoint;
 
+typedef struct s_view
+{
+	int		iso;
+	int		free;
+}	t_view;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -72,6 +78,7 @@ typedef struct s_data
 	float		scalez;
 	float		scalex;
 	float		scaley;
+	t_view		view;
 	t_point		a;
 	t_point		b;
 	t_numpoint	base;
@@ -102,6 +109,6 @@ void	isometric(t_data *data);
 void	paralelle(t_data *data);
 void	create_image(t_data *data, int win_width, int win_height);
 void	high(int keycode, t_data *data);
-void	top(t_data *data);
+void	free_view(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:13:55 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/14 15:57:23 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/16 11:27:19 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	data_init(t_data *data, char **argv)
 	data->is_printing = 1;
 	data->high = 10;
 	data->scalez = 1;
+	data->view.iso = 1;
+	data->view.free = 0;
 }
 //data->first.x = 960 + (720 * cos((data->anglefirst * M_PI) / 180));
 //data->first.y = 540 + (405 * sin((data->anglefirst * M_PI) / 180));
