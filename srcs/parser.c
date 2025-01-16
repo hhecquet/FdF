@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 14:56:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/12 14:56:27 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/16 14:52:13 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	**parser(char *argv, t_data *data)
 
 	data->map = malloc(sizeof(int *) * count_lines(argv));
 	if (!data->map)
-		exit(EXIT_FAILURE);
+		handle_error("Error: Memory allocation failed.\n", data);
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 	{
 		free(data->map);
-		exit(EXIT_FAILURE);
+		handle_error("Error: Memory allocation failed.\n", data);
 	}
 	next_line = get_next_line(fd);
 	while (next_line != NULL)
@@ -35,7 +35,7 @@ int	**parser(char *argv, t_data *data)
 		{
 			free(next_line);
 			ft_free_int(data->map, data->base.ligne);
-			exit(EXIT_FAILURE);
+			handle_error("Error: Memory allocation failed.\n", data);
 		}
 		data->map[data->base.ligne] = malloc(sizeof(int) * (len_tab(split)
 					+ 1));
@@ -43,7 +43,7 @@ int	**parser(char *argv, t_data *data)
 		{
 			free(next_line);
 			ft_free(split, len_tab(split));
-			exit(EXIT_FAILURE);
+			handle_error("Error: Memory allocation failed.\n", data);
 		}
 		data->base.colonne = a_to_i(split, data->map[data->base.ligne]);
 		free(next_line);

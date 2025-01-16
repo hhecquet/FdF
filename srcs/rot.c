@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 14:42:48 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/16 11:53:45 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:36:19 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,28 @@ void	scale_z(t_data *data, int keycode)
 {
 	if (keycode == 120)
 	{
-		if ((data->anglez >= 270 && data->anglez <= 360) || (data->anglez >= 90 && data->anglez <= 180))
+		if ((data->anglez > 270 && data->anglez < 360) || (data->anglez > 90 && data->anglez < 180))
 			data->scalez -= 0.02;
 		else
-			data->scalez += 0.02;
+			data->scalez += 0.02;//ptit prob ici
 	}
-	else
+	else if (keycode == 122)
 	{
-		if ((data->anglez >= 270 && data->anglez <= 360) || (data->anglez >= 90 && data->anglez <= 180))
+		if ((data->anglez > 270 && data->anglez < 360) || (data->anglez > 90 && data->anglez < 180))
+			data->scalez += 0.02;
+		else
+			data->scalez -= 0.02;
+	}
+	if (keycode == 97)
+	{
+		if ((data->anglez > 270 && data->anglez < 360) || (data->anglez > 90 && data->anglez < 180))
+			data->scalez -= 0.02;
+		else
+			data->scalez += 0.02;//ptit prob ici
+	}
+	else if (keycode == 115)
+	{
+		if ((data->anglez > 270 && data->anglez < 360) || (data->anglez > 90 && data->anglez < 180))
 			data->scalez += 0.02;
 		else
 			data->scalez -= 0.02;
@@ -62,19 +76,22 @@ void	rot_y(int keycode, t_data *data)
 	if (keycode == 115)
 	{
 		data->angley += 1;
-		data->anglez -= 1;
-		data->scalez += 0.02;
+		data->anglez -= 0.5;
 	}
 	else
 	{
 		data->angley -= 1;
-		data->anglez += 1;
-		data->scalez -= 0.02;
+		data->anglez += 0.5;
 	}
-	if (data->angley >= 360)
+	if (data->angley > 360)
 		data->angley -= 360;
-	if (data->anglez >= 360)
+	if (data->anglez > 360)
 		data->anglez -= 360;
+	if (data->angley < 0)
+		data->angley += 360;
+	if (data->anglez < 0)
+		data->anglez += 360;
+	scale_z(data, keycode);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
@@ -92,10 +109,14 @@ void	rot_z(int keycode, t_data *data)
 		data->anglex -= 1;
 		data->angley -= 1;
 	}
-	if (data->angley >= 360)
+	if (data->angley > 360)
 		data->angley -= 360;
-	if (data->anglex >= 360)
+	if (data->anglex > 360)
 		data->anglex -= 360;
+	if (data->angley < 0)
+		data->angley += 360;
+	if (data->anglex < 0)
+		data->anglex += 360;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }

@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 15:13:55 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/16 11:27:19 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:51:04 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	handle_error(const char *msg, t_data *data)
 		write(1, msg, ft_strlen(msg));
 	if (data)
 	{
-		mlx_clear_window(data->mlx, data->win);
 		if (data->intro)
 			mlx_destroy_image(data->mlx, data->intro);
 		mlx_destroy_image(data->mlx, data->img);

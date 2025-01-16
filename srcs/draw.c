@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:29:03 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/16 11:26:44 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:57:25 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,9 +180,9 @@ void	mlx_put_base(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->intro, 0, 0);
 	if (data->view.free == 1)
 		data->is_printing = 0;
-	printf("anglex = %ld\n", data->anglex);
-	printf("angley = %ld\n", data->angley);
-	printf("anglez = %ld\n", data->anglez);
+	printf("anglex = %d\n", data->anglex);
+	printf("angley = %d\n", data->angley);
+	printf("anglez = %f\n", data->anglez);
 	printf("scalez = %f\n", data->scalez);
 	//printf("scale = %f\n", data->scale);
 	//printf("scale*data->scalez = %f\n", data->scale*data->scalez);
