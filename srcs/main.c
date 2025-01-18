@@ -50,6 +50,10 @@ int	close_window(t_data *data)
 
 void	data_init(t_data *data, char **argv)
 {
+	data->win_width = 1920;
+	data->win_height = 1080;
+	data->intro_width = 300;
+	data->intro_height = 1080;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		handle_error("Error: MiniLibX initialization failed->\n", data);
@@ -74,17 +78,19 @@ void	data_init(t_data *data, char **argv)
 
 int	main(int argc, char **argv)
 {
+	int		fd;
 	t_data	*data;
 
 	if (argc != 2)
 		return (0);
+	fd = open(argv[1], O_RDONLY);
+    if (fd < 0)
+        return (ft_putstr_fd("File not found\n", 2), 1);
+    else
+		close(fd);
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 		handle_error("Error: Memory allocation failed->\n", NULL);
-	data->win_width = 1920;
-	data->win_height = 1080;
-	data->intro_width = 300;
-	data->intro_height = 1080;
 	data_init(data, argv);
 	data->win = mlx_new_window(data->mlx, data->win_width, data->win_height,
 			"FdF - 42 Project");

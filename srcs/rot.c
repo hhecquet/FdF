@@ -76,12 +76,12 @@ void	rot_y(int keycode, t_data *data)
 	if (keycode == 115)
 	{
 		data->angley += 1;
-		data->anglez -= 0.5;
+		data->anglez += 0.5;
 	}
 	else
 	{
 		data->angley -= 1;
-		data->anglez += 0.5;
+		data->anglez -= 0.5;
 	}
 	if (data->angley > 360)
 		data->angley -= 360;
