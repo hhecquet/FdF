@@ -14,7 +14,7 @@
 
 int	key_handler(int keycode, t_data *data)
 {
-	printf("keycode = %d\n", keycode);
+	//printf("keycode = %d\n", keycode);
 	if (keycode == 105)
 		isometric(data);
 	else if (keycode == 112)
@@ -114,10 +114,9 @@ void	mlx_put_base(t_data *data)
 								* M_PI) / 180));
 				data->b.y = data->a.y + (data->scale * sinf((data->anglex
 								* M_PI) / 180));
-				data->b.x = data->b.x + ((data->map[j + 1][i] - data->map[j][i])
-						* ((data->scale) / data->high) * cosf((data->anglez
-								* M_PI) / 180));
-				data->b.y = data->b.y + ((data->map[j + 1][i] - data->map[j][i])
+				data->b.x = data->b.x + ((data->map[j + 1][i] - data->map[j][i]) * (sinf((data->angley * M_PI) / 180)) * sinf((data->anglex * M_PI) / 180)
+						* ((data->scale) / data->high));
+				data->b.y = data->b.y + ((data->map[j + 1][i] - data->map[j][i]) * (cosf((data->anglex * M_PI) / 180)) * cosf((data->angley * M_PI) / 180)
 						* ((data->scale) / data->high) * sinf((data->anglez
 								* M_PI) / 180));
 				if (i == 0)
@@ -143,10 +142,9 @@ void	mlx_put_base(t_data *data)
 								* M_PI) / 180));
 				data->b.y = data->a.y + (data->scale * sinf((data->angley
 								* M_PI) / 180));
-				data->b.x = data->b.x + ((data->map[j][i + 1] - data->map[j][i])
-						* ((data->scale) / data->high) * cosf((data->anglez
-								* M_PI) / 180));
-				data->b.y = data->b.y + ((data->map[j][i + 1] - data->map[j][i])
+				data->b.x = data->b.x + ((data->map[j][i + 1] - data->map[j][i]) * (sinf((data->angley * M_PI) / 180)) * sinf((data->anglex * M_PI) / 180)
+						* ((data->scale) / data->high));
+				data->b.y = data->b.y + ((data->map[j][i + 1] - data->map[j][i]) * (cosf((data->anglex * M_PI) / 180)) * cosf((data->angley * M_PI) / 180)
 						* ((data->scale) / data->high) * sinf((data->anglez
 								* M_PI) / 180));
 				preva = data->b;
@@ -180,10 +178,13 @@ void	mlx_put_base(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->intro, 0, 0);
 	if (data->view.free == 1)
 		data->is_printing = 0;
-	printf("anglex = %d\n", data->anglex);
-	printf("angley = %d\n", data->angley);
-	printf("anglez = %f\n", data->anglez);
-	printf("scalez = %f\n", data->scalez);
+	printf("cosanglex = %f\n", cosf((data->anglex * M_PI) / 180));
+	printf("cosangley = %f\n", cosf((data->angley * M_PI) / 180));
+	printf("sinanglex = %f\n", sinf((data->anglex * M_PI) / 180));
+	printf("sinangley = %f\n", sinf((data->angley * M_PI) / 180));
+	//printf("anglex = %d\n", data->anglex);
+	//printf("angley = %d\n", data->angley);
+	//printf("anglez = %f\n", data->anglez);
 	//printf("scale = %f\n", data->scale);
 	//printf("scale*data->scalez = %f\n", data->scale*data->scalez);
 }
