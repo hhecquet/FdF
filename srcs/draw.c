@@ -115,9 +115,10 @@ void	mlx_put_base(t_data *data)
 				data->b.y = data->a.y + (data->scale * sinf((data->anglex
 								* M_PI) / 180));
 				data->b.x = data->b.x + ((data->map[j + 1][i] - data->map[j][i]) * (sinf((data->angley * M_PI) / 180)) * sinf((data->anglex * M_PI) / 180)
-						* ((data->scale) / data->high));
+						* ((data->scale * 5) / data->high) * cosf((data->anglez
+								* M_PI) / 180));
 				data->b.y = data->b.y + ((data->map[j + 1][i] - data->map[j][i]) * (cosf((data->anglex * M_PI) / 180)) * cosf((data->angley * M_PI) / 180)
-						* ((data->scale) / data->high) * sinf((data->anglez
+						* ((data->scale * 5) / data->high) * sinf((data->anglez
 								* M_PI) / 180));
 				if (i == 0)
 					tmp = data->b;
@@ -143,9 +144,10 @@ void	mlx_put_base(t_data *data)
 				data->b.y = data->a.y + (data->scale * sinf((data->angley
 								* M_PI) / 180));
 				data->b.x = data->b.x + ((data->map[j][i + 1] - data->map[j][i]) * (sinf((data->angley * M_PI) / 180)) * sinf((data->anglex * M_PI) / 180)
-						* ((data->scale) / data->high));
+						* ((data->scale * 5) / data->high) * cosf((data->anglez
+								* M_PI) / 180));
 				data->b.y = data->b.y + ((data->map[j][i + 1] - data->map[j][i]) * (cosf((data->anglex * M_PI) / 180)) * cosf((data->angley * M_PI) / 180)
-						* ((data->scale) / data->high) * sinf((data->anglez
+						* ((data->scale * 5) / data->high) * sinf((data->anglez
 								* M_PI) / 180));
 				preva = data->b;
 				if (data->map[j][i] > 0 || data->map[j][i + 1] > 0)
