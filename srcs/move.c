@@ -59,8 +59,13 @@ void	zoom_in_out(int keycode, t_data *data)
 	mlx_put_base(data);
 }
 
-void	isometric(t_data *data)
+void	isometric(t_data *data, int keycode)
 {
+	if (keycode == 112)
+	{
+		paralelle(data);
+		return ;
+	}
 	data->is_printing = 1;
 	data->anglex = 30;
 	data->angley = 330;

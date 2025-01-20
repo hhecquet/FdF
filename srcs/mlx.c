@@ -16,13 +16,15 @@ enelever le key hook pour les map trop grande
 
 norme
 valgrind
+bon debut avec z qui change le reste a gerer
+*/
 
-vue iso et para bien mais blouqer les rot et gere les zoom et deplacement
-vue top (free a changer) bon debut avec z qui change le reste a gerer
-
-modifer mon menu
-tout mettre sur sortie 2
-et gerer les couleurs dans les fichiers*/
-
-
-sqrt(((((data->map[j][i + 1] - data->map[j][i] - data->scale)/2) * sinf((((2 * M_PI)/360)*data->angley) + (M_PI/2)) + ((data->map[j][i + 1] - data->map[j][i] + data->scale)/2)) * (((data->map[j][i + 1] - data->map[j][i] - data->scale)/2) * sinf((((2 * M_PI)/360)*data->angley) + (M_PI/2)) + ((data->map[j][i + 1] - data->map[j][i] + data->scale)/2))) - (((((data->map[j][i + 1] - data->map[j][i])/2) * sinf((((2 * M_PI)/360)*data->angley) + (M_PI/2)) + ((data->map[j][i + 1] - data->map[j][i])/2))) * ((((data->map[j][i + 1] - data->map[j][i])/2) * sinf((((2 * M_PI)/360)*data->angley) + (M_PI/2)) + ((data->map[j][i + 1] - data->map[j][i])/2)))))
+//sqrt(((((data->map[j][i + 1] - data->map[j][i] - data->scale)/2) * sinf((((2 *
+//M_PI)/360)*data->angley) + (M_PI/2)) + ((data->map[j][i + 1] - data->map[j][i]
+//+ data->scale)/2)) * (((data->map[j][i + 1] - data->map[j][i] - data->scale)/2
+//) * sinf((((2 * M_PI)/360)*data->angley) + (M_PI/2)) + ((data->map[j][i + 1] -
+//data->map[j][i] + data->scale)/2))) - (((((data->map[j][i + 1] - data->map[j][
+//i])/2) * sinf((((2 * M_PI)/360)*data->angley) + (M_PI/2)) + ((data->map[j][i +
+//1] - data->map[j][i])/2))) * ((((data->map[j][i + 1] - data->map[j][i])/2) * s
+//inf((((2 * M_PI)/360)*data->angley) + (M_PI/2)) + ((data->map[j][i + 1] - data
+//->map[j][i])/2)))))

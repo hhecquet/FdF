@@ -39,25 +39,6 @@ int	a_to_i(char **split, int *map)
 	return (i);
 }
 
-void	print_map(int **map, int lines, int colones)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < lines)
-	{
-		j = 0;
-		while (j < colones)
-		{
-			ft_printf("%d ", map[i][j]);
-			j++;
-		}
-		ft_printf("\n");
-		i++;
-	}
-}
-
 int	count_lines(char *argv)
 {
 	int		fd;

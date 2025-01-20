@@ -15,7 +15,7 @@
 void	handle_error(const char *msg, t_data *data)
 {
 	if (msg)
-		write(1, msg, ft_strlen(msg));
+		write(2, msg, ft_strlen(msg));
 	if (data)
 	{
 		if (data->intro)
@@ -24,6 +24,7 @@ void	handle_error(const char *msg, t_data *data)
 		mlx_destroy_window(data->mlx, data->win);
 		mlx_destroy_display(data->mlx);
 		ft_free_int(data->map, data->base.ligne);
+		ft_free_int(data->map_color, data->base.ligne);
 		free(data->mlx);
 		free(data);
 	}
@@ -84,13 +85,15 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (0);
 	fd = open(argv[1], O_RDONLY);
-    if (fd < 0)
-        return (ft_putstr_fd("File not found\n", 2), 1);
-    else
+	if (fd < 0)
+		return (ft_putstr_fd("File not found\n", 2), 1);
+	else
 		close(fd);
-	data = (t_data *)malloc(sizeof(t_data));
+	data = (t_data *)ft_calloc(1, sizeof(t_data));
 	if (!data)
 		handle_error("Error: Memory allocation failed->\n", NULL);
+	ft_putstr_fd("Loading please wait ... ⌛\n", 1);
+	ft_putstr_fd("Larger maps may take longer to load 💭​\n\n", 1);
 	data_init(data, argv);
 	data->win = mlx_new_window(data->mlx, data->win_width, data->win_height,
 			"FdF - 42 Project");

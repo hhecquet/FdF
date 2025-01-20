@@ -14,11 +14,10 @@
 
 int	key_handler(int keycode, t_data *data)
 {
-	//printf("keycode = %d\n", keycode);
-	if (keycode == 105)
-		isometric(data);
-	else if (keycode == 112)
-		paralelle(data);
+	if (data->is_printing == 1)
+		return (0);
+	else if (keycode == 105 || keycode == 112)
+		isometric(data, keycode);
 	else if (keycode == 99 || keycode == 118)
 		high(keycode, data);
 	else if (keycode == 102)
@@ -31,7 +30,7 @@ int	key_handler(int keycode, t_data *data)
 		move_left_right(keycode, data);
 	else if (keycode == 61 || keycode == 45)
 		zoom_in_out(keycode, data);
-	else if (data->is_printing == 1)
+	else if (data->view.iso == 1)
 		return (0);
 	else if (keycode == 120 || keycode == 122)
 		rot_x(keycode, data);
@@ -82,6 +81,26 @@ void	mlx_put_line(t_data *data)
 	}
 }
 
+int	ft_chrcolor(int **map_color, t_data *data)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	while (j < data->base.ligne)
+	{
+		i = 0;
+		while (i < data->base.colonne)
+		{
+			if (map_color[j][i] != 0xFFFFFF)
+				return (1);
+			i++;
+		}
+		j++;
+	}
+	return (0);
+}
+
 void	mlx_put_base(t_data *data)
 {
 	static t_point	tmp;
@@ -114,23 +133,28 @@ void	mlx_put_base(t_data *data)
 								* M_PI) / 180));
 				data->b.y = data->a.y + (data->scale * sinf((data->anglex
 								* M_PI) / 180));
-				data->b.x = data->b.x + ((data->map[j + 1][i] - data->map[j][i]) * (sinf((data->angley * M_PI) / 180)) * sinf((data->anglex * M_PI) / 180)
-						* ((data->scale * 5) / data->high) * cosf((data->anglez
-								* M_PI) / 180));
-				data->b.y = data->b.y + ((data->map[j + 1][i] - data->map[j][i]) * (cosf((data->anglex * M_PI) / 180)) * cosf((data->angley * M_PI) / 180)
-						* ((data->scale * 5) / data->high) * sinf((data->anglez
-								* M_PI) / 180));
+				data->b.x = data->b.x + ((data->map[j + 1][i] - data->map[j][i])
+						* ((data->scale * 1.5) / data->high) * cosf((
+								data->anglez * M_PI) / 180));
+				data->b.y = data->b.y + ((data->map[j + 1][i] - data->map[j][i])
+						* ((data->scale * 1.5) / data->high) * (sinf((
+									data->anglez * M_PI) / 180)));
 				if (i == 0)
 					tmp = data->b;
-				if (data->map[j][i] > 0 || data->map[j + 1][i] > 0)
-					data->base.color = 0xF9036B;
-				else if (data->map[j][i] < 0 || data->map[j + 1][i] < 0)
-					data->base.color = 0xF7A2C6;
+				if (ft_chrcolor(data->map_color, data) == 1)
+					data->base.color = data->map_color[j][i];
 				else
-					data->base.color = 0xFFFFFF;
-				if ((data->map[j][i] < 0 && data->map[j + 1][i] > 0)
-						|| (data->map[j][i] > 0 && data->map[j + 1][i] < 0))
-					data->base.color = 0xFA599D;
+				{
+					if (data->map[j][i] > 0 || data->map[j + 1][i] > 0)
+						data->base.color = 0xF9036B;
+					else if (data->map[j][i] < 0 || data->map[j + 1][i] < 0)
+						data->base.color = 0xF7A2C6;
+					else
+						data->base.color = 0xFFFFFF;
+					if ((data->map[j][i] < 0 && data->map[j + 1][i] > 0)
+							|| (data->map[j][i] > 0 && data->map[j + 1][i] < 0))
+						data->base.color = 0xFA599D;
+				}
 				mlx_put_line(data);
 			}
 			if (i == 0)
@@ -143,22 +167,27 @@ void	mlx_put_base(t_data *data)
 								* M_PI) / 180));
 				data->b.y = data->a.y + (data->scale * sinf((data->angley
 								* M_PI) / 180));
-				data->b.x = data->b.x + ((data->map[j][i + 1] - data->map[j][i]) * (sinf((data->angley * M_PI) / 180)) * sinf((data->anglex * M_PI) / 180)
-						* ((data->scale * 5) / data->high) * cosf((data->anglez
-								* M_PI) / 180));
-				data->b.y = data->b.y + ((data->map[j][i + 1] - data->map[j][i]) * (cosf((data->anglex * M_PI) / 180)) * cosf((data->angley * M_PI) / 180)
-						* ((data->scale * 5) / data->high) * sinf((data->anglez
-								* M_PI) / 180));
+				data->b.x = data->b.x + ((data->map[j][i + 1] - data->map[j][i])
+						* ((data->scale * 1.5) / data->high) * (cosf((
+									data->anglez * M_PI) / 180)));
+				data->b.y = data->b.y + ((data->map[j][i + 1] - data->map[j][i])
+						* ((data->scale * 1.5) / data->high) * (sinf((
+									data->anglez * M_PI) / 180)));
 				preva = data->b;
-				if (data->map[j][i] > 0 || data->map[j][i + 1] > 0)
-					data->base.color = 0xF9036B;
-				else if (data->map[j][i] < 0 || data->map[j][i + 1] < 0)
-					data->base.color = 0xF7A2C6;
+				if (ft_chrcolor(data->map_color, data) == 1)
+					data->base.color = data->map_color[j][i + 1];
 				else
-					data->base.color = 0xFFFFFF;
-				if ((data->map[j][i] < 0 && data->map[j][i + 1] > 0)
-						|| (data->map[j][i] > 0 && data->map[j][i + 1] < 0))
-					data->base.color = 0xFA599D;
+				{
+					if (data->map[j][i] > 0 || data->map[j][i + 1] > 0)
+						data->base.color = 0xF9036B;
+					else if (data->map[j][i] < 0 || data->map[j][i + 1] < 0)
+						data->base.color = 0xF7A2C6;
+					else
+						data->base.color = 0xFFFFFF;
+					if ((data->map[j][i] < 0 && data->map[j][i + 1] > 0)
+							|| (data->map[j][i] > 0 && data->map[j][i + 1] < 0))
+						data->base.color = 0xFA599D;
+				}
 				mlx_put_line(data);
 				preva = data->b;
 			}
@@ -173,21 +202,19 @@ void	mlx_put_base(t_data *data)
 			&data->intro_width, &data->intro_height);
 	if (!data->intro)
 	{
-		ft_printf("Error: Failed to load XPM image\n");
+		ft_putstr_fd("Error: Failed to load XPM image\n", 2);
 		return ;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	mlx_put_image_to_window(data->mlx, data->win, data->intro, 0, 0);
-	if (data->view.free == 1)
-		data->is_printing = 0;
-	printf("cosanglex = %f\n", cosf((data->anglex * M_PI) / 180));
-	printf("cosangley = %f\n", cosf((data->angley * M_PI) / 180));
-	printf("sinanglex = %f\n", sinf((data->anglex * M_PI) / 180));
-	printf("sinangley = %f\n", sinf((data->angley * M_PI) / 180));
+	data->is_printing = 0;
+}
+	//printf("cosanglex = %f\n", cosf((data->anglex * M_PI) / 180));
+	//printf("cosangley = %f\n", cosf((data->angley * M_PI) / 180));
+	//printf("sinanglex = %f\n", sinf((data->anglex * M_PI) / 180));
+	//printf("sinangley = %f\n", sinf((data->angley * M_PI) / 180));
 	//printf("anglex = %d\n", data->anglex);
 	//printf("angley = %d\n", data->angley);
 	//printf("anglez = %f\n", data->anglez);
 	//printf("scale = %f\n", data->scale);
 	//printf("scale*data->scalez = %f\n", data->scale*data->scalez);
-}
-//abs == 90 pour la rotate passer de 0 a 1

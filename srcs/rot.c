@@ -12,38 +12,6 @@
 
 #include "../includes/fdf.h"
 
-void	scale_z(t_data *data, int keycode)
-{
-	if (keycode == 120)
-	{
-		if ((data->anglez > 270 && data->anglez < 360) || (data->anglez > 90 && data->anglez < 180))
-			data->scalez -= 0.02;
-		else
-			data->scalez += 0.02;//ptit prob ici
-	}
-	else if (keycode == 122)
-	{
-		if ((data->anglez > 270 && data->anglez < 360) || (data->anglez > 90 && data->anglez < 180))
-			data->scalez += 0.02;
-		else
-			data->scalez -= 0.02;
-	}
-	if (keycode == 97)
-	{
-		if ((data->anglez > 270 && data->anglez < 360) || (data->anglez > 90 && data->anglez < 180))
-			data->scalez -= 0.02;
-		else
-			data->scalez += 0.02;//ptit prob ici
-	}
-	else if (keycode == 115)
-	{
-		if ((data->anglez > 270 && data->anglez < 360) || (data->anglez > 90 && data->anglez < 180))
-			data->scalez += 0.02;
-		else
-			data->scalez -= 0.02;
-	}
-}
-
 void	rot_x(int keycode, t_data *data)
 {
 	data->is_printing = 1;
@@ -65,7 +33,6 @@ void	rot_x(int keycode, t_data *data)
 		data->anglex += 360;
 	if (data->anglez < 0)
 		data->anglez += 360;
-	scale_z(data, keycode);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
@@ -76,12 +43,12 @@ void	rot_y(int keycode, t_data *data)
 	if (keycode == 115)
 	{
 		data->angley += 2;
-		data->anglez -= 1;
+		data->anglez -= 2;
 	}
 	else
 	{
 		data->angley -= 2;
-		data->anglez += 1;
+		data->anglez += 2;
 	}
 	if (data->angley > 360)
 		data->angley -= 360;
@@ -91,7 +58,6 @@ void	rot_y(int keycode, t_data *data)
 		data->angley += 360;
 	if (data->anglez < 0)
 		data->anglez += 360;
-	scale_z(data, keycode);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
