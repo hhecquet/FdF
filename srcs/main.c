@@ -86,7 +86,7 @@ int	main(int argc, char **argv)
 		return (0);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		return (ft_putstr_fd("File not found\n", 2), 1);
+		return (ft_putstr_fd("File not found\n", 2), close(fd), 1);
 	else
 		close(fd);
 	data = (t_data *)ft_calloc(1, sizeof(t_data));
