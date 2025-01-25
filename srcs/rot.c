@@ -16,23 +16,13 @@ void	rot_x(int keycode, t_data *data)
 {
 	data->is_printing = 1;
 	if (keycode == 120)
-	{
-		data->anglex += 2;
-		data->anglez += 2;
-	}
+		data->aglx += 2;
 	else
-	{
-		data->anglex -= 2;
-		data->anglez -= 2;
-	}
-	if (data->anglex > 360)
-		data->anglex -= 360;
-	if (data->anglez > 360)
-		data->anglez -= 360;
-	if (data->anglex < 0)
-		data->anglex += 360;
-	if (data->anglez < 0)
-		data->anglez += 360;
+		data->aglx -= 2;
+	if (data->aglx >= 360)
+		data->aglx -= 360;
+	else if (data->aglx < 0)
+		data->aglx += 360;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
@@ -41,23 +31,13 @@ void	rot_y(int keycode, t_data *data)
 {
 	data->is_printing = 1;
 	if (keycode == 115)
-	{
-		data->angley += 2;
-		data->anglez -= 2;
-	}
+		data->agly += 2;
 	else
-	{
-		data->angley -= 2;
-		data->anglez += 2;
-	}
-	if (data->angley > 360)
-		data->angley -= 360;
-	if (data->anglez > 360)
-		data->anglez -= 360;
-	if (data->angley < 0)
-		data->angley += 360;
-	if (data->anglez < 0)
-		data->anglez += 360;
+		data->agly -= 2;
+	if (data->agly >= 360)
+		data->agly -= 360;
+	else if (data->agly < 0)
+		data->agly += 360;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
@@ -66,23 +46,13 @@ void	rot_z(int keycode, t_data *data)
 {
 	data->is_printing = 1;
 	if (keycode == 119)
-	{
-		data->anglex += 2;
-		data->angley += 2;
-	}
+		data->aglz += 2;
 	else
-	{
-		data->anglex -= 2;
-		data->angley -= 2;
-	}
-	if (data->angley > 360)
-		data->angley -= 360;
-	if (data->anglex > 360)
-		data->anglex -= 360;
-	if (data->angley < 0)
-		data->angley += 360;
-	if (data->anglex < 0)
-		data->anglex += 360;
+		data->aglz -= 2;
+	if (data->aglz >= 360)
+		data->aglz -= 360;
+	else if (data->aglz < 0)
+		data->aglz += 360;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
@@ -107,13 +77,12 @@ void	high(int keycode, t_data *data)
 void	free_view(t_data *data)
 {
 	data->is_printing = 1;
-	data->anglex = 30;
-	data->angley = 330;
-	data->first.x = 400;
-	data->anglez = 330;
+	data->aglx = 0;
+	data->agly = 0;
+	data->aglz = 0;
 	data->scale = 900 / fmax(data->base.ligne, data->base.colonne);
-	data->scalez = 0;
-	data->first.y = 580;
+	data->first.x = 1110;
+	data->first.y = 100;
 	data->view.iso = 0;
 	data->view.free = 1;
 	mlx_destroy_image(data->mlx, data->img);

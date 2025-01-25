@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 11:44:52 by hhecquet          #+#    #+#              #
-#    Updated: 2025/01/12 15:39:51 by marvin           ###   ########.fr        #
+#    Updated: 2025/01/25 13:59:04 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRCS =	libft/*.c \
 		srcs/parser_utils.c \
 		srcs/draw.c \
 		srcs/rot.c \
-		srcs/move.c
+		srcs/move.c \
+		srcs/draw_utils.c
 		
 all: $(NAME)
 

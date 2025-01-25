@@ -40,7 +40,7 @@ typedef struct s_point
 {
 	float		x;
 	float		y;
-	int			color;
+	float		z;
 }	t_point;
 
 typedef struct s_numpoint
@@ -69,26 +69,45 @@ typedef struct s_data
 	int			bpp;
 	int			line_length;
 	int			endian;
-	int			anglex;
-	int			angley;
-	float		anglez;
-	int			anglefirst;
+	float		aglx;
+	float		agly;
+	float		aglz;
+	float		angle;
 	int			is_printing;
 	float		high;
-	float		scalez;
-	float		scalex;
-	float		scaley;
 	t_view		view;
-	t_point		a;
-	t_point		b;
 	t_numpoint	base;
 	t_point		first;
+	t_point		a;
+	t_point		b;
+	float		z_scale;
 	int			**map;
 	int			**map_color;
 	float		scale;
 	int			win_width;
 	int			win_height;
+	t_point		p_current;
+	t_point		p_next_col;
+	t_point		p_next_row;
+	t_point		p_screen_current;
+	t_point		p_screen_next;
+	int			k;
+	float		x_offset;
+	float		y_offset;
 }	t_data;
+
+typedef struct s_rotate
+{
+	float		radx;
+	float		rady;
+	float		radz;
+	float		x;
+	float		y;
+	float		z;
+	float		x1;
+	float		y1;
+	float		z1;
+}	t_rotate;
 
 void	mlx_put_line(t_data *data);
 void	mlx_put_base(t_data *data);
@@ -110,5 +129,8 @@ void	paralelle(t_data *data);
 void	create_image(t_data *data, int win_width, int win_height);
 void	high(int keycode, t_data *data);
 void	free_view(t_data *data);
+void	rotate_point(t_point *p, float anglex, float angley, float anglez);
+int		ft_chrcolor(int **map_color, t_data *data);
+void	pixel_put(t_data *data);
 
 #endif

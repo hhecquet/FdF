@@ -60,22 +60,18 @@ void	data_init(t_data *data, char **argv)
 		handle_error("Error: MiniLibX initialization failed->\n", data);
 	data->base.ligne = 0;
 	parser(argv[1], data);
-	data->anglefirst = 180;
 	data->scale = 900 / fmax(data->base.ligne, data->base.colonne);
-	data->first.x = 400;
-	data->first.y = 540;
-	data->anglex = 30;
-	data->angley = 330;
-	data->anglez = 270;
+	data->first.x = 1110;
+	data->first.y = 100;
+	data->aglx = 0;
+	data->agly = 0;
+	data->aglz = 0;
 	data->intro = 0;
 	data->is_printing = 1;
 	data->high = 10;
-	data->scalez = 1;
 	data->view.iso = 1;
 	data->view.free = 0;
 }
-//data->first.x = 960 + (720 * cos((data->anglefirst * M_PI) / 180));
-//data->first.y = 540 + (405 * sin((data->anglefirst * M_PI) / 180));
 
 int	main(int argc, char **argv)
 {
@@ -93,7 +89,7 @@ int	main(int argc, char **argv)
 	if (!data)
 		handle_error("Error: Memory allocation failed->\n", NULL);
 	ft_putstr_fd("Loading please wait ... ⌛\n", 1);
-	ft_putstr_fd("Larger maps may take longer to load 💭​\n\n", 1);
+	ft_putstr_fd("Larger maps may take longer to load 💭​\n", 1);
 	data_init(data, argv);
 	data->win = mlx_new_window(data->mlx, data->win_width, data->win_height,
 			"FdF - 42 Project");

@@ -67,36 +67,29 @@ void	isometric(t_data *data, int keycode)
 		return ;
 	}
 	data->is_printing = 1;
-	data->anglex = 30;
-	data->angley = 330;
-	data->anglez = 270;
-	data->anglefirst = 180;
-	data->scale = 900 / fmax(data->base.ligne, data->base.colonne);
-	data->first.x = 400;
-	data->first.y = 540;
-	data->scalez = 1;
+	data->aglx = 0;
+	data->agly = 0;
+	data->aglz = 0;
+	data->scale = 900 / fmin(data->base.ligne, data->base.colonne);
+	data->first.x = 1110;
+	data->first.y = 100;
 	data->view.iso = 1;
 	data->view.free = 0;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
-//data->first.x = 960 + (720 * cos((data->anglefirst * M_PI) / 180));
-//data->first.y = 540 + (405 * sin((data->anglefirst * M_PI) / 180));
 
 void	paralelle(t_data *data)
 {
 	data->is_printing = 1;
-	data->anglex = 45;
-	data->angley = 0;
-	data->anglez = 270;
-	data->anglefirst = 210;
-	data->scale = 900 / fmax(data->base.ligne, data->base.colonne);
-	data->first.y = 540 + (500 * sin((data->anglefirst * M_PI) / 180));
-	data->first.x = 400;
-	data->scalez = 1;
+	data->aglx = 26;
+	data->agly = 24;
+	data->aglz = 18;
+	data->scale = 900 / fmin(data->base.ligne, data->base.colonne);
+	data->first.y = 120;
+	data->first.x = 1280;
 	data->view.iso = 1;
 	data->view.free = 0;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
-//data->first.x = 960 + (750 * cos((data->anglefirst * M_PI) / 180));

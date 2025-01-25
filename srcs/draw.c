@@ -12,190 +12,103 @@
 
 #include "../includes/fdf.h"
 
-int	key_handler(int keycode, t_data *data)
+void	color_n_draw(t_data *data, int i, int j, int k)
 {
-	if (data->is_printing == 1)
-		return (0);
-	else if (keycode == 105 || keycode == 112)
-		isometric(data, keycode);
-	else if (keycode == 99 || keycode == 118)
-		high(keycode, data);
-	else if (keycode == 102)
-		free_view(data);
-	else if (keycode == 65307)
-		handle_error(NULL, data);
-	else if (keycode == 65362 || keycode == 65364)
-		move_up_down(keycode, data);
-	else if (keycode == 65361 || keycode == 65363)
-		move_left_right(keycode, data);
-	else if (keycode == 61 || keycode == 45)
-		zoom_in_out(keycode, data);
-	else if (data->view.iso == 1)
-		return (0);
-	else if (keycode == 120 || keycode == 122)
-		rot_x(keycode, data);
-	else if (keycode == 115 || keycode == 97)
-		rot_y(keycode, data);
-	else if (keycode == 119 || keycode == 113)
-		rot_z(keycode, data);
-	return (0);
-}
+	int	x;
+	int	y;
 
-void	pixel_put(t_data *data)
-{
-	char	*pixel;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-
-	pixel = mlx_get_data_addr(data->img, &bits_per_pixel, &line_length,
-			&endian);
-	pixel += ((int)data->a.y * line_length + (int)data->a.x
-			* (bits_per_pixel / 8));
-	*(int *)pixel = data->base.color;
-}
-
-void	mlx_put_line(t_data *data)
-{
-	float	dx;
-	float	dy;
-	float	step;
-	float	x_increment;
-	float	y_increment;
-
-	dx = data->b.x - data->a.x;
-	dy = data->b.y - data->a.y;
-	step = fmax(fabs(dx), fabs(dy));
-	if (step == 0)
-		return ;
-	x_increment = dx / step;
-	y_increment = dy / step;
-	while (step > 0)
+	x = j;
+	y = i;
+	if (k == 1)
+		y += 1;
+	else
+		x += 1;
+	if (ft_chrcolor(data->map_color, data) == 1)
+		data->base.color = data->map_color[j][i];
+	else
 	{
-		if (data->a.x >= 0 && data->a.x < data->win_width
-			&& data->a.y >= 0 && data->a.y < data->win_height)
-			pixel_put(data);
-		data->a.x += x_increment;
-		data->a.y += y_increment;
-		step--;
+		if (data->map[j][i] > 0 || data->map[x][y] > 0)
+			data->base.color = 0xF9036B;
+		else if (data->map[j][i] < 0 || data->map[x][y] < 0)
+			data->base.color = 0xF7A2C6;
+		else
+			data->base.color = 0xFFFFFF;
+		if ((data->map[j][i] < 0 && data->map[x][y] > 0)
+			|| (data->map[j][i] > 0 && data->map[x][y] < 0))
+			data->base.color = 0xFA599D;
 	}
+	mlx_put_line(data);
 }
 
-int	ft_chrcolor(int **map_color, t_data *data)
+t_point	point_init(t_data *data, t_point p, int i, int j)
 {
-	int	i;
-	int	j;
+	int	m;
+	int	n;
 
-	j = 0;
+	m = j;
+	n = i;
+	if (data->k == 1)
+		n += 1;
+	else
+		m += 1;
+	p.x = (n) * data->scale;
+	p.y = m * data->scale;
+	p.z = data->map[m][n] * data->z_scale;
+	rotate_point(&p, data->aglx, data->agly,
+		data->aglz);
+	data->p_screen_next.x = data->x_offset + (p.x
+			- p.y) * cos(data->angle);
+	data->p_screen_next.y = data->y_offset + (p.x
+			+ p.y) * sin(data->angle)
+		- p.z;
+	data->a.x = data->p_screen_current.x;
+	data->a.y = data->p_screen_current.y;
+	data->b.x = data->p_screen_next.x;
+	data->b.y = data->p_screen_next.y;
+	color_n_draw(data, i, j, data->k);
+	return (p);
+}
+
+void	put_on_screen(t_data *data, int i, int j)
+{
 	while (j < data->base.ligne)
 	{
 		i = 0;
 		while (i < data->base.colonne)
 		{
-			if (map_color[j][i] != 0xFFFFFF)
-				return (1);
+			data->p_current.x = i * data->scale;
+			data->p_current.y = j * data->scale;
+			data->p_current.z = data->map[j][i] * data->z_scale;
+			rotate_point(&data->p_current, data->aglx, data->agly, data->aglz);
+			data->p_screen_current.x = data->x_offset + (data->p_current.x
+					- data->p_current.y) * cos(data->angle);
+			data->p_screen_current.y = data->y_offset + (data->p_current.x
+					+ data->p_current.y) * sin(data->angle) - data->p_current.z;
+			data->k = 1;
+			if (i + 1 < data->base.colonne)
+				data->p_next_col = point_init(data, data->p_next_col, i, j);
+			data->k = 2;
+			if (j + 1 < data->base.ligne)
+				data->p_next_row = point_init(data, data->p_next_row, i, j);
 			i++;
 		}
 		j++;
 	}
-	return (0);
 }
 
 void	mlx_put_base(t_data *data)
 {
-	static t_point	tmp;
-	static t_point	preva;
-	static t_point	firstraw;
-	int				i;
-	int				j;
+	int		i;
+	int		j;
 
+	data->z_scale = (data->scale / data->high) * 1.5;
+	data->x_offset = data->first.x;
+	data->y_offset = data->first.y;
 	j = 0;
 	i = 0;
+	data->angle = 30 * M_PI / 180;
 	create_image(data, data->win_width, data->win_height);
-	firstraw.x = data->first.x + (data->map[j][i] * (data->scale
-				/ data->high) * cosf((data->anglez * M_PI) / 180));
-	firstraw.y = data->first.y + (data->map[j][i] * (data->scale
-				/ data->high) * cosf((data->anglez * M_PI) / 180));
-	preva = firstraw;
-	tmp = firstraw;
-	while (j < data->base.ligne)
-	{
-		i = 0;
-		while (i < data->base.colonne)
-		{
-			if (i == 0)
-				data->a = firstraw;
-			else
-				data->a = preva;
-			if (j + 1 < data->base.ligne)
-			{
-				data->b.x = data->a.x + (data->scale * cosf((data->anglex
-								* M_PI) / 180));
-				data->b.y = data->a.y + (data->scale * sinf((data->anglex
-								* M_PI) / 180));
-				data->b.x = data->b.x + ((data->map[j + 1][i] - data->map[j][i])
-						* ((data->scale * 1.5) / data->high) * cosf((
-								data->anglez * M_PI) / 180));
-				data->b.y = data->b.y + ((data->map[j + 1][i] - data->map[j][i])
-						* ((data->scale * 1.5) / data->high) * (sinf((
-									data->anglez * M_PI) / 180)));
-				if (i == 0)
-					tmp = data->b;
-				if (ft_chrcolor(data->map_color, data) == 1)
-					data->base.color = data->map_color[j][i];
-				else
-				{
-					if (data->map[j][i] > 0 || data->map[j + 1][i] > 0)
-						data->base.color = 0xF9036B;
-					else if (data->map[j][i] < 0 || data->map[j + 1][i] < 0)
-						data->base.color = 0xF7A2C6;
-					else
-						data->base.color = 0xFFFFFF;
-					if ((data->map[j][i] < 0 && data->map[j + 1][i] > 0)
-							|| (data->map[j][i] > 0 && data->map[j + 1][i] < 0))
-						data->base.color = 0xFA599D;
-				}
-				mlx_put_line(data);
-			}
-			if (i == 0)
-				data->a = firstraw;
-			else
-				data->a = preva;
-			if (i + 1 < data->base.colonne)
-			{
-				data->b.x = data->a.x + (data->scale * cosf((data->angley
-								* M_PI) / 180));
-				data->b.y = data->a.y + (data->scale * sinf((data->angley
-								* M_PI) / 180));
-				data->b.x = data->b.x + ((data->map[j][i + 1] - data->map[j][i])
-						* ((data->scale * 1.5) / data->high) * (cosf((
-									data->anglez * M_PI) / 180)));
-				data->b.y = data->b.y + ((data->map[j][i + 1] - data->map[j][i])
-						* ((data->scale * 1.5) / data->high) * (sinf((
-									data->anglez * M_PI) / 180)));
-				preva = data->b;
-				if (ft_chrcolor(data->map_color, data) == 1)
-					data->base.color = data->map_color[j][i + 1];
-				else
-				{
-					if (data->map[j][i] > 0 || data->map[j][i + 1] > 0)
-						data->base.color = 0xF9036B;
-					else if (data->map[j][i] < 0 || data->map[j][i + 1] < 0)
-						data->base.color = 0xF7A2C6;
-					else
-						data->base.color = 0xFFFFFF;
-					if ((data->map[j][i] < 0 && data->map[j][i + 1] > 0)
-							|| (data->map[j][i] > 0 && data->map[j][i + 1] < 0))
-						data->base.color = 0xFA599D;
-				}
-				mlx_put_line(data);
-				preva = data->b;
-			}
-			i++;
-		}
-		j++;
-		firstraw = tmp;
-	}
+	put_on_screen(data, i, j);
 	if (data->intro)
 		mlx_destroy_image(data->mlx, data->intro);
 	data->intro = mlx_xpm_file_to_image(data->mlx, "srcs/intro.xpm",
@@ -209,12 +122,3 @@ void	mlx_put_base(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->intro, 0, 0);
 	data->is_printing = 0;
 }
-	//printf("cosanglex = %f\n", cosf((data->anglex * M_PI) / 180));
-	//printf("cosangley = %f\n", cosf((data->angley * M_PI) / 180));
-	//printf("sinanglex = %f\n", sinf((data->anglex * M_PI) / 180));
-	//printf("sinangley = %f\n", sinf((data->angley * M_PI) / 180));
-	//printf("anglex = %d\n", data->anglex);
-	//printf("angley = %d\n", data->angley);
-	//printf("anglez = %f\n", data->anglez);
-	//printf("scale = %f\n", data->scale);
-	//printf("scale*data->scalez = %f\n", data->scale*data->scalez);
