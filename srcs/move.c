@@ -24,7 +24,10 @@ void	move_up_down(int keycode, t_data *data)
 		data->first.y += 10;
 	}
 	mlx_destroy_image(data->mlx, data->img);
-	mlx_put_base(data);
+	if (data->view.paralelle == 1)
+		mlx_put_para(data);
+	else
+		mlx_put_base(data);
 }
 
 void	move_left_right(int keycode, t_data *data)
@@ -39,7 +42,10 @@ void	move_left_right(int keycode, t_data *data)
 		data->first.x -= 10;
 	}
 	mlx_destroy_image(data->mlx, data->img);
-	mlx_put_base(data);
+	if (data->view.paralelle == 1)
+		mlx_put_para(data);
+	else
+		mlx_put_base(data);
 }
 
 void	zoom_in_out(int keycode, t_data *data)
@@ -56,7 +62,10 @@ void	zoom_in_out(int keycode, t_data *data)
 			data->scale /= 1.1;
 	}
 	mlx_destroy_image(data->mlx, data->img);
-	mlx_put_base(data);
+	if (data->view.paralelle == 1)
+		mlx_put_para(data);
+	else
+		mlx_put_base(data);
 }
 
 void	isometric(t_data *data, int keycode)
@@ -70,11 +79,13 @@ void	isometric(t_data *data, int keycode)
 	data->aglx = 0;
 	data->agly = 0;
 	data->aglz = 0;
-	data->scale = 900 / fmin(data->base.ligne, data->base.colonne);
+	data->scale = 900 / fmax(data->base.ligne, data->base.colonne);
 	data->first.x = 1110;
 	data->first.y = 100;
 	data->view.iso = 1;
 	data->view.free = 0;
+	data->view.paralelle = 0;
+	data->angle = 30 * M_PI / 180;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }
@@ -82,14 +93,16 @@ void	isometric(t_data *data, int keycode)
 void	paralelle(t_data *data)
 {
 	data->is_printing = 1;
-	data->aglx = 26;
-	data->agly = 24;
-	data->aglz = 18;
-	data->scale = 900 / fmin(data->base.ligne, data->base.colonne);
-	data->first.y = 120;
-	data->first.x = 1280;
+	data->aglx = 45;
+	data->agly = 0;
+	data->aglz = 270;
+	data->scale = 900 / fmax(data->base.ligne, data->base.colonne);
+	data->first.y = 130;
+	data->first.x = 450;
 	data->view.iso = 1;
 	data->view.free = 0;
+	data->view.paralelle = 1;
+	data->angle = 0 * M_PI / 180;
 	mlx_destroy_image(data->mlx, data->img);
-	mlx_put_base(data);
+	mlx_put_para(data);
 }

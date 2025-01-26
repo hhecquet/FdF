@@ -106,7 +106,6 @@ void	mlx_put_base(t_data *data)
 	data->y_offset = data->first.y;
 	j = 0;
 	i = 0;
-	data->angle = 30 * M_PI / 180;
 	create_image(data, data->win_width, data->win_height);
 	put_on_screen(data, i, j);
 	if (data->intro)

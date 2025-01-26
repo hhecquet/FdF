@@ -54,6 +54,7 @@ typedef struct s_view
 {
 	int		iso;
 	int		free;
+	int		paralelle;
 }	t_view;
 
 typedef struct s_data
@@ -109,6 +110,13 @@ typedef struct s_rotate
 	float		z1;
 }	t_rotate;
 
+typedef struct s_putbase
+{
+	t_point	tmp;
+	t_point	preva;
+	t_point	firstraw;
+}	t_putbase;
+
 void	mlx_put_line(t_data *data);
 void	mlx_put_base(t_data *data);
 int		key_handler(int keycode, t_data *data);
@@ -132,5 +140,7 @@ void	free_view(t_data *data);
 void	rotate_point(t_point *p, float anglex, float angley, float anglez);
 int		ft_chrcolor(int **map_color, t_data *data);
 void	pixel_put(t_data *data);
+int		mlx_put_para(t_data *data);
+void	color_n_draw(t_data *data, int i, int j, int k);
 
 #endif

@@ -85,6 +85,8 @@ void	free_view(t_data *data)
 	data->first.y = 100;
 	data->view.iso = 0;
 	data->view.free = 1;
+	data->view.paralelle = 0;
+	data->angle = 30 * M_PI / 180;
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_put_base(data);
 }

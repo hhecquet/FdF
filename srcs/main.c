@@ -71,6 +71,8 @@ void	data_init(t_data *data, char **argv)
 	data->high = 10;
 	data->view.iso = 1;
 	data->view.free = 0;
+	data->view.paralelle = 0;
+	data->angle = 30 * M_PI / 180;
 }
 
 int	main(int argc, char **argv)
