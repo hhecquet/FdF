@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/06 11:44:52 by hhecquet          #+#    #+#              #
-#    Updated: 2025/01/27 08:55:11 by marvin           ###   ########.fr        #
+#    Updated: 2025/01/27 14:05:12 by hhecquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ SRCS =	libft/*.c \
 		srcs/parallel.c
 		
 all: $(NAME)
+
+bonus: $(NAME)
 
 $(NAME): $(SRCS) includes/fdf.h
 	cd libft && make -s
