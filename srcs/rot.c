@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 14:42:48 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/16 13:36:19 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/27 13:09:41 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ void	high(int keycode, t_data *data)
 			data->high -= 0.2;
 	}
 	mlx_destroy_image(data->mlx, data->img);
-	mlx_put_base(data);
+	if (data->view.paralelle == 1)
+		mlx_put_para(data);
+	else
+		mlx_put_base(data);
 }
 
 void	free_view(t_data *data)

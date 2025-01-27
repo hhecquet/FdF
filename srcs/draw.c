@@ -6,7 +6,7 @@
 /*   By: hhecquet <hhecquet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:29:03 by hhecquet          #+#    #+#             */
-/*   Updated: 2025/01/16 13:57:25 by hhecquet         ###   ########.fr       */
+/*   Updated: 2025/01/27 12:46:23 by hhecquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	mlx_put_base(t_data *data)
 	put_on_screen(data, i, j);
 	if (data->intro)
 		mlx_destroy_image(data->mlx, data->intro);
-	data->intro = mlx_xpm_file_to_image(data->mlx, "includes/intro.xpm",
+	data->intro = mlx_xpm_file_to_image(data->mlx, "srcs/intro.xpm",
 			&data->intro_width, &data->intro_height);
 	if (!data->intro)
 	{
