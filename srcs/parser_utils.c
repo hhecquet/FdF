@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 int	len_tab(char **tab)
 {

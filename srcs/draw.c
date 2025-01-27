@@ -110,7 +110,7 @@ void	mlx_put_base(t_data *data)
 	put_on_screen(data, i, j);
 	if (data->intro)
 		mlx_destroy_image(data->mlx, data->intro);
-	data->intro = mlx_xpm_file_to_image(data->mlx, "srcs/intro.xpm",
+	data->intro = mlx_xpm_file_to_image(data->mlx, "includes/intro.xpm",
 			&data->intro_width, &data->intro_height);
 	if (!data->intro)
 	{
